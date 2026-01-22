@@ -1,0 +1,137 @@
+# Incident Report: Phishing Site Takedown (myitsac.id)
+
+## 1. Executive Summary
+
+A phishing website hosted at `myitsac.id` was identified and investigated after exhibiting suspicious behavior. The site selectively served a fake password change form and was confirmed to be a credential-harvesting phishing campaign using the GoPhish framework. Infrastructure attribution was performed, and abuse reports were submitted to the hosting provider and relevant platforms. Following reporting, the hosting provider applied a network-level suspension, rendering the site inaccessible.
+
+---
+
+## 2. Incident Details
+
+**Incident Type:** Phishing / Credential Harvesting
+**Domain:** myitsac.id
+**IP Address:** 104.237.1.95
+**Hosting Provider:** Hosteros LLC (US)
+**Registrar:** PT Registrasi Neva Angkasa
+**Registry:** PANDI (.id)
+
+---
+
+## 3. Discovery & Initial Indicators
+
+* Root domain (`/`) returned HTTP 404.
+* Specific URL parameter (`?rid=…`) loaded a password change form.
+* WHOIS data was minimal, suggesting recent registration (Nov 27, 2025).
+* Domain impersonated a legitimate service.
+* Conditional content delivery is consistent with targeted phishing campaigns.
+
+---
+
+## 4. Technical Analysis
+
+For detailed evidence, see the accompanying evidence files in the `evidence/` folder.
+
+### DNS Resolution (see evidence/dns.md)
+
+```
+myitsac.id → 104.237.1.95
+```
+
+**Infrastructure Attribution:** The IP is hosted by Hosteros LLC (US).
+
+### HTTP Header Evidence (see evidence/http-headers.md)
+
+```
+Server: nginx/1.24.0 (Ubuntu)
+X-Server: gophish
+```
+
+**Conclusion:** The `X-Server: gophish` header definitively identifies the GoPhish phishing framework.
+
+### TLS / Certificate Transparency
+
+* Let’s Encrypt certificate issued: **2026-01-06**
+* Valid until: 2026-04-06
+* Indicates campaign was very recent
+
+### Registry Information (PANDI)
+
+* Domain registered: **2025-11-27**
+* Status: `clientTransferProhibited`
+* Nameservers: `nsx1.domainesia.com`, `nsx2.domainesia.com`
+
+---
+
+## 5. Risk Assessment
+
+**Risk Level:** High
+**Threat:** Credential harvesting
+**Potential Impact:**
+
+* Account compromise
+* Lateral movement
+* Identity theft
+
+> No real credentials were submitted during investigation.
+
+---
+
+## 6. Response & Mitigation Actions
+
+1. Confirmed phishing behavior.
+2. Identified hosting provider via IP attribution.
+3. Submitted abuse report to Hosteros LLC (email).
+4. Reported URL to Google Safe Browsing.
+5. Attempted submission to VirusTotal and urlscan.io.
+6. Monitored site availability via `curl`, `nc`, and DNS.
+
+---
+
+## 7. Outcome / Resolution
+
+**Observed Outcome:**
+
+* TCP connections to `104.237.1.95:443` timed out.
+* `curl` and `nc` confirmed network-level block.
+* Site inaccessible via both root and parameterized URLs.
+
+**Conclusion:**
+
+> Hosting provider applied a network-level suspension (null routing), effectively taking the phishing site offline.
+
+---
+
+## 8. Indicators of Compromise (IOCs)
+
+```
+Domain: myitsac.id
+IP Address: 104.237.1.95
+URL: https://myitsac.id/?rid=*
+Framework: GoPhish
+```
+
+---
+
+## 9. Lessons Learned
+
+* Targeted phishing often uses conditional URL parameters to evade scanners.
+* GoPhish can be identified via HTTP headers (`X-Server: gophish`).
+* Hosting provider abuse reports can lead to rapid takedown.
+* DNS records may persist after hosting suspension.
+
+---
+
+## 10. References / Evidence
+
+* DNS and HTTP headers via `dig`, `curl`, `nc`.
+* Certificate transparency via crt.sh.
+* Registrar & PANDI WHOIS data.
+* Screenshots / logs of phishing page (if captured safely).
+* Emails sent to Hosteros LLC and Google Safe Browsing.
+
+---
+
+✅ **Status:** Closed / Site offline
+
+---
+
