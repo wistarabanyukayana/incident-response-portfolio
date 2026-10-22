@@ -3,7 +3,7 @@
 Welcome to my Incident Response Portfolio! This repository showcases my hands-on work in analyzing and mitigating security incidents, including phishing, malware, and other security threats.
 
 ## About Me
-- Security enthusiast / Analyst / SOC Analyst (adjust to your role)
+- Informatics Engineering student at ITS with a hands-on interest in security
 - Focus: Threat detection, infrastructure analysis, and incident response
 - Skills demonstrated: 
   - Phishing analysis
@@ -14,7 +14,7 @@ Welcome to my Incident Response Portfolio! This repository showcases my hands-on
   - Documentation of incidents
 
 ## Featured Incidents
-1. [Phishing Site Takedown – myitsac.id](./phishing-myitsac/README.md)
+1. [Phishing Site Takedown – myitsac.id](./phising-myitsac/README.md)
    - Identified a live phishing campaign using GoPhish
    - Collected infrastructure and technical evidence safely
    - Coordinated reporting to hosting provider and Google Safe Browsing
@@ -27,7 +27,6 @@ Welcome to my Incident Response Portfolio! This repository showcases my hands-on
   - Detailed incident report
   - Evidence (sanitized)
   - Workflow diagrams (if any)
-- Scripts folder contains optional analysis tools (safe to review)
 
 ## Notes
 - All sensitive data has been sanitized
